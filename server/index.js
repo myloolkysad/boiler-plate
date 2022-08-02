@@ -1,6 +1,6 @@
 const express = require('express'); //모듈 가져오기
 const app = express(); //앱을 변수에 담기
-const port = 5000
+const port = 5000;
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const config = require('./config/key');
@@ -33,19 +33,36 @@ app.get('/', (req, res) => { // get 메소드 사용
   res.send('안녕하세요~111') //문구 출력
 })
 
+app.get('/api/hello', (req, res) => {
+  res.send("안녕안녕~");
+})
+
 //회원가입을 위한 라우터 //라우터가 노드js에서는 컨트롤러 느낌?
-app.post('/register', (req, res) => { //post 메소드 사용
-  //회원가입 할 대 필요한 정보들을 클라이언트에서 가져오면
+// app.post('/register', (req, res) => { //post 메소드 사용
+//   //회원가입 할 대 필요한 정보들을 클라이언트에서 가져오면
+//   // 그것들을 데이터 베이스에 넣어준다.
+//   const user = new User(req.body); //User.js 객체화
+//   console.log('요청바디~ ' + req.body); //  express + body-parser 모듈을 이용해서  req.body를 받을수 있게된것
+//   user.save((err, userInfo) => {
+//     console.log('save의 유저정보~ ' + userInfo);
+//     if(err) return res.json({ success: false, err});
+//     return res.status(200).json({
+//       success: true
+//     })
+//   });
+// });
+
+app.post("/api/users/register", (req, res) => {
+
+  // 회원 가입 할때 필요한 정보들을 client에서 가져오면
   // 그것들을 데이터 베이스에 넣어준다.
-  const user = new User(req.body); //User.js 객체화
-  console.log('요청바디~ ' + req.body); //  express + body-parser 모듈을 이용해서  req.body를 받을수 있게된것
+  const user = new User(req.body);
+
   user.save((err, userInfo) => {
-    console.log('save의 유저정보~ ' + userInfo);
-    if(err) return res.json({ success: false, err});
-    return res.status(200).json({
-      success: true
-    })
+    if (err) return res.json({ success: false, err });
+    return res.status(200).json({ success: true });
   });
+
 });
 
 app.post('/api/users/login', (req, res) => {
@@ -76,6 +93,16 @@ app.post('/api/users/login', (req, res) => {
             .status(200)
             .json({ loginSuccess: true, userId: user._id});
         });
+        // user.generateToken((err, user) => {
+        //   if (err) return res.status(400).send(err);
+        //   res.cookie("w_authExp", user.tokenExp);
+        //   res
+        //       .cookie("w_auth", user.token)
+        //       .status(200)
+        //       .json({
+        //           loginSuccess: true, userId: user._id
+        //       });
+        // });
     });
 
   });
