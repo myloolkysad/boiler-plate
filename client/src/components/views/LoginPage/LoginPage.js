@@ -3,7 +3,7 @@ import Axios from 'axios';
 import { useDispatch } from 'react-redux'
 import { loginUser } from '../../../_actions/user_action';
 import { useNavigate } from 'react-router-dom';  // react-router-dom v6부터 useHistory에서 useNavigate로 바뀜
-
+import { withRouter } from 'react-router-dom';
 
 function LogingPage(props) {
     const dispatch = useDispatch();

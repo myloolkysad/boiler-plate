@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux'
 import { registerUser } from '../../../_actions/user_action';
 import { useNavigate } from 'react-router-dom';  // react-router-dom v6부터 useHistory에서 useNavigate로 바뀜
 import { Axios } from 'axios';
+import { withRouter } from 'react-router-dom';
 
 
 function RegisterPage(props) {
@@ -89,4 +90,4 @@ function RegisterPage(props) {
   )
 }
 
-export default RegisterPage;
+export default RegisterPage
